@@ -10,7 +10,7 @@ until [[ $OP == 0 ]]; do
 
 	echo "[1] Listar conteúdo da pasta atual
 		  [2] Ver conteúdo de um arquivo
-		  [3] Testar se uma url está no ar
+		  [3] Testar se um IP está ativo
 		  [0] Sair"
 
 	echo "Informe a opcao desejada"
@@ -27,12 +27,22 @@ until [[ $OP == 0 ]]; do
 				;;
 				2)
 					echo "Informe o nome do arquivo"
-					read arq
+						read arq
 
 					cat $arq |more
 				;;
 				3)
-					echo "Informe o endereco da pagina"
+					echo "Informe o IP a ser verificado"
+						read ip
+
+						if [ ! -z $ip ];then 
+							ping -c 1 $ip
+	
+						if [ $? -eq 0 ];then
+							echo "maquina esta retotnando ip"
+						else
+							echo "maquina fora do ar"
+						fi
 				;;
 			#	0)
 			#		echo "ateh mais"
@@ -50,8 +60,4 @@ done
 
 
 
-Observações: 
-- O menu sempre será mostrado após a execução de uma das opções
-- O programa só termina quando o usuário escolhe a opção 0-sair
-- No item 2, você deve perguntar o nome do arquivo
-- No item 3, você deve perguntar o nome da url
+
